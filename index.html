@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Профиль — Чирва Максим Андреевич</title>
+
+<style>
+:root{
+  --bg:#050509;
+  --text:#f2f2f5;
+  --muted:#b2b2be;
+  --line:rgba(255,255,255,.10);
+  --red:#ff1d1d;
+  --glow:0 0 18px rgba(255,29,29,.35);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;overflow-x:hidden}
+
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--text);
+  background:
+    radial-gradient(1100px 600px at 20% -10%, rgba(255,29,29,.18), transparent 55%),
+    radial-gradient(900px 500px at 90% 10%, rgba(183,0,0,.16), transparent 60%),
+    var(--bg);
+  min-height:100svh;
+  position:relative;
+}
+
+/* виньетка */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(120% 90% at 50% 35%,
+      rgba(255,255,255,0) 35%,
+      rgba(255,60,60,.08) 55%,
+      rgba(140,0,0,.28) 75%,
+      rgba(0,0,0,.65) 100%);
+}
+
+/* снег */
+#snow{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.flake{position:absolute;top:-10vh;animation:fall linear infinite;will-change:transform}
+.flake span{
+  display:block;
+  animation:sway ease-in-out infinite;
+  color:#fff;
+  opacity:.75;
+  will-change:transform;
+  text-shadow:0 0 10px rgba(255,255,255,.18);
+  filter:drop-shadow(0 0 6px rgba(255,255,255,.18));
+  user-select:none;
+}
+@keyframes fall{to{transform:translateY(120vh)}}
+@keyframes sway{0%,100%{transform:translateX(0)}50%{transform:translateX(25px)}}
+
+/* layout */
+.wrap{
+  max-width:1000px;
+  margin:auto;
+  padding:clamp(12px,4vw,20px);
+  position:relative;
+  z-index:2;
+}
+
+/* header */
+header{
+  position:sticky;top:0;z-index:10;
+  backdrop-filter:blur(10px);
+  background:rgba(5,5,9,.8);
+  border-bottom:1px solid var(--line);
+}
+.top{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{
+  display:flex;gap:8px;align-items:center;
+  font-weight:800;text-decoration:none;color:var(--text);
+  white-space:nowrap;
+}
+.brand::before{
+  content:"";
+  width:10px;height:10px;border-radius:50%;
+  background:var(--red);box-shadow:var(--glow);
+}
+
+nav{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+nav::-webkit-scrollbar{height:0}
+nav a{
+  padding:8px 12px;
+  border-radius:999px;
+  color:var(--muted);
+  text-decoration:none;
+  white-space:nowrap;
+  font-weight:700;
+  border:1px solid transparent;
+}
+nav a.active, nav a:hover{
+  color:#fff;
+  background:rgba(255,29,29,.15);
+  border-color:rgba(255,29,29,.4);
+}
+
+/* cards */
+main{padding-top:20px}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 18px 60px rgba(0,0,0,.45);
+}
+section[hidden]{display:none !important}
+
+/* home grid */
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+  align-items:start;
+}
+@media(min-width:900px){
+  .grid{grid-template-columns:1.15fr .85fr;}
+}
+
+/* hero */
+.photo{
+  max-width:100%;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,29,29,.25);
+  box-shadow:var(--glow);
+}
+.photo img{width:100%;height:auto;max-height:60vh;object-fit:contain;display:block}
+
+h1{margin:10px 0 0;font-size:28px;line-height:1.2}
+.subtitle{margin:0;color:var(--muted);font-weight:700}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.chip{
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,29,29,.3);
+  color:var(--muted);
+}
+
+/* info (фикс пустого поля) */
+.info{
+  align-self:flex-start;    /* не растягивать */
+  height:auto;
+}
+.info h3{margin:0 0 10px}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:8px 12px}
+.k{color:var(--muted);font-size:13px}
+.v{font-weight:700}
+@media(max-width:600px){
+  .kv{grid-template-columns:1fr;gap:6px}
+  .k{font-size:12px}
+}
+
+/* lists */
+.list{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.item{
+  padding:12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.02);
+  word-break:break-word;
+}
+.item b{display:block;margin-bottom:4px}
+.item span{color:var(--muted);font-size:14px}
+
+footer{
+  margin-top:16px;
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+}
+.link{color:#fff;text-decoration:none;border-bottom:1px dashed rgba(255,29,29,.55)}
+</style>
+</head>
+
+<body>
+<div id="snow" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap top">
+    <a class="brand" href="#home">Чирва Максим</a>
+    <nav aria-label="Навигация">
+      <a href="#home" data-route="home">Главная</a>
+      <a href="#bio" data-route="bio">Биография</a>
+      <a href="#hobby" data-route="hobby">Увлечения</a>
+      <a href="#contacts" data-route="contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HOME -->
+  <section id="home" class="card">
+    <div class="grid">
+      <div>
+        <div class="photo">
+          <img src="maxim.png" alt="Фотография Чирва Максим Андреевич">
+        </div>
+
+        <h1>Чирва Максим Андреевич</h1>
+        <p class="subtitle">БИО о любимом максимке</p>
+
+        <div class="chips" aria-label="Ключевые факты">
+          <span class="chip">Город: Ст.Кущёвская</span>
+          <span class="chip">Увлечение: игра на барабанах</span>
+          <span class="chip">Дата рождения: 16.09.2010</span>
+        </div>
+
+        <p style="margin-top:12px">
+          Максим — увлекается игрой на барабанах и развивается в своём интересе к музыке.
+          На этой странице собрана основная информация: краткая биография, увлечения и контакты.
+        </p>
+        <p>
+          Любит хорошо покушать по этому если зовете его куда либо то возьмите с собой пару копеечек
+          и предложите сходить в ББ он будет не против
+        </p>
+      </div>
+
+      <aside class="card info">
+        <h3>Текущая информация</h3>
+        <div class="kv">
+          <div class="k">ФИО</div><div class="v">Чирва Максим Андреевич</div>
+          <div class="k">Дата рождения</div><div class="v">16.09.2010</div>
+          <div class="k">Город</div><div class="v">Ст.Кущёвская</div>
+          <div class="k">Увлечения</div><div class="v">Игра на барабанах</div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      © <span id="year"></span> Чирва Максим Андреевич ·
+      <a class="link" href="#contacts" data-route="contacts">связаться</a>
+    </footer>
+  </section>
+
+  <!-- BIO -->
+  <section id="bio" class="card" hidden>
+    <h2 style="margin:0 0 10px;">Биография</h2>
+    <p style="color:var(--muted);margin:0">
+      Сюда можно добавить текст более подробно (например: школа, занятия, достижения).
+    </p>
+
+    <div class="list">
+      <div class="item">
+        <b>Основное</b>
+        <span>Чирва Максим Андреевич, родился 16.09.2010. Играет на барабанах и есть своя рок группа, Проживает в Кущевской но так же иногда ездит к отцу в Краснодар.</span>
+      </div>
+      <div class="item">
+        <b>Город</b>
+        <span>Ст.Кущёвская.</span>
+      </div>
+      <div class="item">
+        <b>Интерес</b>
+        <span>Развивает навыки игры на барабанах, интересуется музыкой.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOBBY -->
+  <section id="hobby" class="card" hidden>
+    <h2 style="margin:0 0 10px;">Увлечения</h2>
+    <p style="color:var(--muted);margin:0">Главный интерес: игра на барабанах.</p>
+
+    <div class="list">
+      <div class="item">
+        <b>Игра на барабанах</b>
+        <span>Играет в стиле рок.</span>
+      </div>
+      <div class="item">
+        <b>Планы</b>
+        <span>Найти девушку, Начать давать концерты со своей рок группой.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section id="contacts" class="card" hidden>
+    <h2 style="margin:0 0 10px;">Контакты</h2>
+    <p style="color:var(--muted);margin:0">Захотите со мной связаться пишите в тг.</p>
+
+    <div class="list">
+      <div class="item">
+        <b>Telegram</b>
+        <span>@RewqsX</span>
+      </div>
+      <div class="item">
+        <b>Email</b>
+        <span>хаваю говно</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // год
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // вкладки без прыжков
+  const sections = ["home","bio","hobby","contacts"];
+
+  function setActive(route){
+    sections.forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) el.hidden = (id!==route);
+    });
+    document.querySelectorAll('nav a[data-route]').forEach(a=>{
+      a.classList.toggle("active", a.dataset.route===route);
+    });
+    // всегда наверх при смене
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function routeFromHash(){
+    const hash=(location.hash||"#home").replace("#","").trim();
+    const route = sections.includes(hash) ? hash : "home";
+    // не скроллим браузером к якорю — просто показываем секцию
+    sections.forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) el.hidden = (id!==route);
+    });
+    document.querySelectorAll('nav a[data-route]').forEach(a=>{
+      a.classList.toggle("active", a.dataset.route===route);
+    });
+  }
+
+  // перехват кликов, чтобы не было прыжков по якорям
+  document.querySelectorAll('a[data-route]').forEach(a=>{
+    a.addEventListener("click",(e)=>{
+      e.preventDefault();
+      const route = a.dataset.route;
+      history.replaceState(null,"","#"+route);
+      setActive(route);
+    });
+  });
+
+  window.addEventListener("load", routeFromHash);
+  window.addEventListener("hashchange", routeFromHash);
+
+  // снег (адаптивно)
+  const snow=document.getElementById("snow");
+  const isMobile=matchMedia("(max-width:600px)").matches;
+  const count=isMobile?18:35;
+
+  function rand(min,max){return Math.random()*(max-min)+min}
+
+  for(let i=0;i<count;i++){
+    const f=document.createElement("div");
+    f.className="flake";
+    const s=document.createElement("span");
+    s.textContent="❄";
+    s.style.fontSize = rand(isMobile?10:10, isMobile?16:22) + "px";
+    s.style.opacity = rand(0.35,0.9);
+
+    f.style.left = rand(0,100) + "vw";
+    f.style.animationDuration = rand(isMobile?9:7, isMobile?18:16) + "s";
+    f.style.animationDelay = rand(-10,0) + "s";
+    s.style.animationDuration = rand(isMobile?3:2.5, isMobile?7:6) + "s";
+    s.style.animationDelay = rand(0,2) + "s";
+
+    f.appendChild(s);
+    snow.appendChild(f);
+  }
+</script>
+</body>
+</html>
